@@ -1,0 +1,21 @@
+.promotions-page .promo-code {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: #7f8c8d;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.copy-btn:hover {
+    color: #3498db;
+}
+
+.modal-lg {
+    max-width: 700px;
+}
