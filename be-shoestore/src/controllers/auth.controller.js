@@ -53,7 +53,7 @@ const register = async (req, res) => {
             .input('role', sql.VarChar, 'customer')
             .input('status', sql.VarChar, 'active')
             .query(`
-                INSERT INTO Users (email, password, full_name, phone, role, status)
+                INSERT INTO Users (email, password_hash, full_name, phone, role, status)
                 OUTPUT INSERTED.user_id, INSERTED.email, INSERTED.full_name, INSERTED.role
                 VALUES (@email, @password, @fullName, @phone, @role, @status)
             `);
@@ -111,7 +111,7 @@ const login = async (req, res) => {
         const result = await pool.request()
             .input('email', sql.NVarChar, email)
             .query(`
-                SELECT user_id, email, password, full_name, phone, avatar, role, status
+                SELECT user_id, email, password_hash, full_name, phone, avatar, role, status
                 FROM Users WHERE email = @email
             `);
 
@@ -133,7 +133,7 @@ const login = async (req, res) => {
         }
 
         // Kiểm tra password
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password_hash);
         if (!isMatch) {
             return res.status(401).json({
                 success: false,
@@ -193,7 +193,7 @@ const adminLogin = async (req, res) => {
         const result = await pool.request()
             .input('email', sql.NVarChar, email)
             .query(`
-                SELECT user_id, email, password, full_name, phone, avatar, role, status, staff_permissions
+                SELECT user_id, email, password_hash, full_name, phone, avatar, role, status, permissions
                 FROM Users 
                 WHERE email = @email AND role IN ('admin', 'staff')
             `);
@@ -216,7 +216,7 @@ const adminLogin = async (req, res) => {
         }
 
         // Kiểm tra password
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password_hash);
         if (!isMatch) {
             return res.status(401).json({
                 success: false,
@@ -248,7 +248,7 @@ const adminLogin = async (req, res) => {
                     phone: user.phone,
                     avatar: user.avatar,
                     role: user.role,
-                    permissions: user.staff_permissions ? JSON.parse(user.staff_permissions) : null
+                    permissions: user.permissions ? JSON.parse(user.permissions) : null
                 },
                 accessToken: tokens.accessToken,
                 refreshToken: tokens.refreshToken
@@ -421,7 +421,7 @@ const changePassword = async (req, res) => {
         // Lấy password hiện tại
         const result = await pool.request()
             .input('userId', sql.Int, req.user.userId)
-            .query('SELECT password FROM Users WHERE user_id = @userId');
+            .query('SELECT password_hash FROM Users WHERE user_id = @userId');
 
         if (result.recordset.length === 0) {
             return res.status(404).json({
@@ -431,7 +431,7 @@ const changePassword = async (req, res) => {
         }
 
         // Kiểm tra password hiện tại
-        const isMatch = await bcrypt.compare(currentPassword, result.recordset[0].password);
+        const isMatch = await bcrypt.compare(currentPassword, result.recordset[0].password_hash);
         if (!isMatch) {
             return res.status(400).json({
                 success: false,
@@ -447,7 +447,7 @@ const changePassword = async (req, res) => {
         await pool.request()
             .input('userId', sql.Int, req.user.userId)
             .input('password', sql.NVarChar, hashedPassword)
-            .query('UPDATE Users SET password = @password, updated_at = GETDATE() WHERE user_id = @userId');
+            .query('UPDATE Users SET password_hash = @password, updated_at = GETDATE() WHERE user_id = @userId');
 
         res.json({
             success: true,
