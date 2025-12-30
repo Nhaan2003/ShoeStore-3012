@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShoesShop - Trang chủ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #333333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        .search-bar {
+            flex-grow: 1;
+            max-width: 500px;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ecf0f1;
+            border-radius: 4px;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #333333;
+            font-weight: 500;
+        }
+        .user-menu {
+            display: flex;
+            gap: 15px;
+        }
+        .user-menu a {
+            color: #333333;
+            text-decoration: none;
+        }
+        /* Banner Styles */
+        .banner-section {
+            margin: 20px 0;
+        }
+        .banner {
+            height: 400px;
+            background-color: #3498db;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Product Section Styles */
+        .product-section {
+            margin: 40px 0;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .see-all {
+            color: #3498db;
+            text-decoration: none;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-image {
+            height: 200px;
+            width: 100%;
+            background-color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-info {
+            padding: 15px;
+        }
+        .product-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .product-price {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        /* Brand Section */
+        .brand-section {
+            margin: 40px 0;
+        }
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+        .brand-item {
+            background-color: white;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        /* Footer Styles */
+        footer {
+            background-color: #333333;
+            color: white;
+            padding: 40px 0;
+            margin-top: 40px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .footer-column ul {
+            list-style: none;
+        }
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        .footer-column ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        /* Chatbot Widget */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .brand-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-menu {
+                display: none;
+            }
+        }
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            .brand-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">ShoesShop</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm...">
+            </div>
+            <div class="nav-menu">
+                <a href="#">Trang chủ</a>
+                <a href="#">Giày nam</a>
+                <a href="#">Giày nữ</a>
+                <a href="#">Thương hiệu</a>
+                <a href="#">Khuyến mãi</a>
+            </div>
+            <div class="user-menu">
+                <a href="#">Đăng nhập</a>
+                <a href="#">Giỏ hàng (0)</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="banner-section">
+            <div class="banner">BANNER KHUYẾN MÃI</div>
+        </section>
+
+        <section class="product-section">
+            <div class="section-header">
+                <h2 class="section-title">Sản phẩm nổi bật</h2>
+                <a href="#" class="see-all">Xem tất cả</a>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">SẢN PHẨM 1</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nike Air Zoom Pegasus 38</h3>
+                        <p class="product-price">2.500.000₫</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">SẢN PHẨM 2</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Adidas Ultra Boost 21</h3>
+                        <p class="product-price">2.100.000₫</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">SẢN PHẨM 3</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Vans Old School</h3>
+                        <p class="product-price">1.800.000₫</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">SẢN PHẨM 4</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Converse Chuck Taylor</h3>
+                        <p class="product-price">1.500.000₫</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="section-header">
+                <h2 class="section-title">Sản phẩm bán chạy</h2>
+                <a href="#" class="see-all">Xem tất cả</a>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">SẢN PHẨM 5</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Puma RS-X</h3>
+                        <p class="product-price">1.750.000₫</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">SẢN PHẨM 6</div>
+                    <div class="product-info">
+                        <h3 class="product-name">New Balance 574</h3>
+                        <p class="product-price">2.100.000₫</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">SẢN PHẨM 7</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nike Air Force 1</h3>
+                        <p class="product-price">1.600.000₫</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">SẢN PHẨM 8</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Adidas NMD</h3>
+                        <p class="product-price">2.800.000₫</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="brand-section">
+            <div class="section-header">
+                <h2 class="section-title">Thương hiệu</h2>
+            </div>
+            <div class="brand-grid">
+                <div class="brand-item">Nike</div>
+                <div class="brand-item">Adidas</div>
+                <div class="brand-item">Vans</div>
+                <div class="brand-item">Converse</div>
+                <div class="brand-item">Puma</div>
+                <div class="brand-item">New Balance</div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Thông tin</h3>
+                    <ul>
+                        <li><a href="#">Về chúng tôi</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Chính sách</h3>
+                    <ul>
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Chính sách bảo hành</a></li>
+                        <li><a href="#">Điều khoản dịch vụ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Hỗ trợ</h3>
+                    <ul>
+                        <li><a href="#">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#">Hướng dẫn thanh toán</a></li>
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                        <li><a href="#">Gửi yêu cầu hỗ trợ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Liên hệ</h3>
+                    <ul>
+                        <li>Hotline: 1800-1234</li>
+                        <li>Email: contact@shoesshop.com</li>
+                        <li>Địa chỉ: 123 Đường ABC, Quận XYZ, TP.HCM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ShoesShop. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="chatbot-widget">
+        <span>Chat</span>
+    </div>
+</body>
+</html>

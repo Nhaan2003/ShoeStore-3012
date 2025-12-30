@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShoesShop - Website Bán Giày</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .search-bar {
+            flex-grow: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ecf0f1;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #95a5a6;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #333333;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-menu a:hover {
+            color: #3498db;
+        }
+        
+        .user-menu {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .user-menu a {
+            color: #333333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .user-menu i {
+            font-size: 18px;
+        }
+        
+        /* Banner Styles */
+        .banner-section {
+            margin: 20px 0;
+        }
+        
+        .banner {
+            height: 400px;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .banner-content {
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .banner p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+        
+        .banner-btn {
+            background-color: white;
+            color: #3498db;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .banner-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Product Section Styles */
+        .product-section {
+            margin: 40px 0;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: #3498db;
+        }
+        
+        .see-all {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            height: 200px;
+            width: 100%;
+            background-color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .product-brand {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .product-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        
+        .add-to-cart {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #2980b9;
+        }
+        
+        .product-rating {
+            color: #f39c12;
+            font-size: 14px;
+        }
+        
+        /* Brand Section */
+        .brand-section {
+            margin: 40px 0;
+        }
+        
+        .brand-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+        }
+        
+        .brand-item {
+            background-color: white;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .brand-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Benefits Section */
+        .benefits-section {
+            margin: 50px 0;
+            background-color: white;
+            padding: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .benefit-item {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .benefit-icon {
+            font-size: 40px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-title {
+            font-weight: 500;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .benefit-text {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #3498db;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 14px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: #3498db;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+        
+        /* Chatbot Widget */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .chatbot-widget:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .chat-icon {
+            font-size: 24px;
+        }
+
+        /* Chatbot Window */
+        .chatbot-window {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            z-index: 999;
+        }
+        
+        .chatbot-header {
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+        }
+        
+        .bot-message {
+            background-color: #f1f0f0;
+            border-bottom-left-radius: 5px;
+            align-self: flex-start;
+        }
+        
+        .user-message {
+            background-color: #3498db;
+            color: white;
+            border-bottom-right-radius: 5px;
+            align-self: flex-end;
+        }
+        
+        .product-suggestions {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin-top: 10px;
+            padding-bottom: 5px;
+        }
+        
+        .product-suggestion {
+            min-width: 120px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .suggestion-image {
+            height: 80px;
+            background-color: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .suggestion-info {
+            padding: 8px;
+            font-size: 12px;
+        }
+        
+        .suggestion-price {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .chatbot-input {
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .chatbot-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ecf0f1;
+            border-radius: 20px;
+            outline: none;
+        }
+        
+        .send-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .brand-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .nav-menu {
+                display: none;
+            }
+            .chatbot-window {
+                width: 300px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            .brand-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .banner h2 {
+                font-size: 1.8rem;
+            }
+            .banner p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">ShoesShop</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                <div class="search-icon">🔍</div>
+            </div>
+            <div class="nav-menu">
+                <a href="#">Trang chủ</a>
+                <a href="#">Giày nam</a>
+                <a href="#">Giày nữ</a>
+                <a href="#">Thương hiệu</a>
+                <a href="#">Khuyến mãi</a>
+            </div>
+            <div class="user-menu">
+                <a href="#"><span>🔐</span> Đăng nhập</a>
+                <a href="#"><span>🛒</span> Giỏ hàng (0)</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="banner-section">
+            <div class="banner">
+                <div class="banner-content">
+                    <h2>BỘ SƯU TẬP GIÀY MỚI 2025</h2>
+                    <p>Khám phá các mẫu giày mới nhất với thiết kế độc đáo và công nghệ tiên tiến</p>
+                    <a href="#" class="banner-btn">XEM NGAY</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="section-header">
+                <h2 class="section-title">Sản phẩm nổi bật</h2>
+                <a href="#" class="see-all">Xem tất cả</a>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <div style="width:100%; height:100%; background:#3498db; display:flex; align-items:center; justify-content:center; color:white;">
+                            NIKE AIR ZOOM
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nike Air Zoom Pegasus 38</h3>
+                        <p class="product-brand">Nike</p>
+                        <p class="product-price">2.500.000₫</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Thêm vào giỏ</button>
+                            <div class="product-rating">★★★★☆</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div style="width:100%; height:100%; background:#e74c3c; display:flex; align-items:center; justify-content:center; color:white;">
+                            ADIDAS ULTRA
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Adidas Ultra Boost 21</h3>
+                        <p class="product-brand">Adidas</p>
+                        <p class="product-price">2.100.000₫</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Thêm vào giỏ</button>
+                            <div class="product-rating">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div style="width:100%; height:100%; background:#2ecc71; display:flex; align-items:center; justify-content:center; color:white;">
+                            VANS OLD SCHOOL
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Vans Old School Classic</h3>
+                        <p class="product-brand">Vans</p>
+                        <p class="product-price">1.800.000₫</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Thêm vào giỏ</button>
+                            <div class="product-rating">★★★★☆</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div style="width:100%; height:100%; background:#9b59b6; display:flex; align-items:center; justify-content:center; color:white;">
+                            CONVERSE CHUCK
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Converse Chuck Taylor</h3>
+                        <p class="product-brand">Converse</p>
+                        <p class="product-price">1.500.000₫</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Thêm vào giỏ</button>
+                            <div class="product-rating">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section">
+            <div class="section-header">
+                <h2 class="section-title">Sản phẩm bán chạy</h2>
+                <a href="#" class="see-all">Xem tất cả</a>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <div style="width:100%; height:100%; background:#f39c12; display:flex; align-items:center; justify-content:center; color:white;">
+                            PUMA RS-X
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Puma RS-X Reinvention</h3>
+                        <p class="product-brand">Puma</p>
+                        <p class="product-price">1.750.000₫</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Thêm vào giỏ</button>
+                            <div class="product-rating">★★★★☆</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div style="width:100%; height:100%; background:#16a085; display:flex; align-items:center; justify-content:center; color:white;">
+                            NEW BALANCE
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">New Balance 574</h3>
+                        <p class="product-brand">New Balance</p>
+                        <p class="product-price">2.100.000₫</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Thêm vào giỏ</button>
+                            <div class="product-rating">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div style="width:100%; height:100%; background:#34495e; display:flex; align-items:center; justify-content:center; color:white;">
+                            NIKE AIR FORCE
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nike Air Force 1 Low</h3>
+                        <p class="product-brand">Nike</p>
+                        <p class="product-price">1.600.000₫</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Thêm vào giỏ</button>
+                            <div class="product-rating">★★★★☆</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div style="width:100%; height:100%; background:#2980b9; display:flex; align-items:center; justify-content:center; color:white;">
+                            ADIDAS NMD
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Adidas NMD R1</h3>
+                        <p class="product-brand">Adidas</p>
+                        <p class="product-price">2.800.000₫</p>
+                        <div class="product-actions">
+                            <button class="add-to-cart">Thêm vào giỏ</button>
+                            <div class="product-rating">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="brand-section">
+            <div class="section-header">
+                <h2 class="section-title">Thương hiệu nổi bật</h2>
+            </div>
+            <div class="brand-grid">
+                <div class="brand-item" style="font-weight: bold; color: #3498db;">NIKE</div>
+                <div class="brand-item" style="font-weight: bold; color: #e74c3c;">ADIDAS</div>
+                <div class="brand-item" style="font-weight: bold; color: #2ecc71;">VANS</div>
+                <div class="brand-item" style="font-weight: bold; color: #9b59b6;">CONVERSE</div>
+                <div class="brand-item" style="font-weight: bold; color: #f39c12;">PUMA</div>
+                <div class="brand-item" style="font-weight: bold; color: #16a085;">NEW BALANCE</div>
+            </div>
+        </section>
+
+        <section class="benefits-section">
+            <div class="container">
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🚚</div>
+                        <h3 class="benefit-title">Giao hàng miễn phí</h3>
+                        <p class="benefit-text">Cho tất cả đơn hàng từ 500.000đ trên toàn quốc</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔄</div>
+                        <h3 class="benefit-title">Đổi trả trong 30 ngày</h3>
+                        <p class="benefit-text">Dễ dàng đổi trả sản phẩm nếu không vừa ý</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔒</div>
+                        <h3 class="benefit-title">Thanh toán an toàn</h3>
+                        <p class="benefit-text">Bảo mật thông tin thanh toán của khách hàng</p>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📞</div>
+                        <h3 class="benefit-title">Hỗ trợ 24/7</h3>
+                        <p class="benefit-text">Luôn sẵn sàng hỗ trợ khách hàng mọi lúc</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Thông tin</h3>
+                    <ul>
+                        <li><a href="#">Về chúng tôi</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tuyển dụng</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Chính sách</h3>
+                    <ul>
+                        <li><a href="#">Chính sách bảo mật</a></li>
+                        <li><a href="#">Chính sách đổi trả</a></li>
+                        <li><a href="#">Chính sách bảo hành</a></li>
+                        <li><a href="#">Điều khoản dịch vụ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Hỗ trợ</h3>
+                    <ul>
+                        <li><a href="#">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#">Hướng dẫn thanh toán</a></li>
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                        <li><a href="#">Gửi yêu cầu hỗ trợ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Liên hệ</h3>
+                    <ul>
+                        <li>Hotline: 1800-1234</li>
+                        <li>Email: contact@shoesshop.com</li>
+                        <li>Địa chỉ: 123 Đường ABC, Quận XYZ, TP.HCM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ShoesShop. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget">
+        <div class="chat-icon">💬</div>
+    </div>
+
+    <!-- Chatbot Window -->
+    <div class="chatbot-window" style="display:none;">
+        <div class="chatbot-header">
+            <div>Trợ lý hỗ trợ</div>
+            <div style="cursor:pointer;">✕</div>
+        </div>
+        <div class="chatbot-messages">
+            <div class="message bot-message">
+                Xin chào! Tôi là trợ lý mua sắm giày. Bạn cần tôi giúp gì không?
+            </div>
+            <div class="message user-message">
+                Tôi muốn tìm giày thể thao cho nam dưới 2 triệu
+            </div>
+            <div class="message bot-message">
+                Đây là một số giày thể thao nam dưới 2 triệu đồng:
+                <div class="product-suggestions">
+                    <div class="product-suggestion">
+                        <div class="suggestion-image" style="background:#3498db; color:white; text-align:center;">Giày 1</div>
+                        <div class="suggestion-info">
+                            <div>Nike Revolution 6</div>
+                            <div class="suggestion-price">1.800.000₫</div>
+                        </div>
+                    </div>
+                    <div class="product-suggestion">
+                        <div class="suggestion-image" style="background:#e74c3c; color:white; text-align:center;">Giày 2</div>
+                        <div class="suggestion-info">
+                            <div>Adidas Runfalcon</div>
+                            <div class="suggestion-price">1.650.000₫</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" placeholder="Nhập câu hỏi...">
+            <button class="send-button">➤</button>
+        </div>
+    </div>
+
+    <script>
+        // Hiển thị chatbot khi click vào widget
+        document.querySelector('.chatbot-widget').addEventListener('click', function() {
+            document.querySelector('.chatbot-window').style.display = 'flex';
+            this.style.display = 'none';
+        });
+
+        // Ẩn chatbot khi click vào nút đóng
+        document.querySelector('.chatbot-header div:last-child').addEventListener('click', function() {
+            document.querySelector('.chatbot-window').style.display = 'none';
+            document.querySelector('.chatbot-widget').style.display = 'flex';
+        });
+    </script>
+</body>
+</html>
